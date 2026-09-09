@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie Debugger</title>
+    <script defer>
+        async function fetchCookies(url, output) {
+            const rootResponse = await fetch(url);
+            if (!rootResponse.ok) {
+                document.getElementById(output).innerText = rootResponse.statusText;
+            }
+
+            document.getElementById(output).innerText = await rootResponse.text();
+        }
+        fetchCookies("/echo", "root_cookies");
+        fetchCookies("/app/echo", "app_cookies");
+    </script>
+</head>
+<body>
+<h1>Cookie Debugger</h1>
+<h2>Request Cookies (Server Side)</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{range .Cookies}}
+    <tr>
+        <td>{{.Name}}</td>
+        <td>{{.Value}}</td>
+    </tr>
+    {{end}}
+    </tbody>
+</table>
+<h2>Fetch Cookies</h2>
+<h3>/cookies</h3>
+<div id="root_cookies"></div>
+<h3>/app/cookies</h3>
+<div id="app_cookies"></div>
+</body>
+</html>
