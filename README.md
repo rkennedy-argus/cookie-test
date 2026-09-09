@@ -22,3 +22,10 @@ go run main.go
 
 At this point, the server is listening on port 10101. [Set your cookies](http://localhost:10101/app/setcookies)
 and then view the [root debug](http://localhost:10101/debug) and [/app debug](http://localhost:10101/app/debug).
+
+## Results
+
+The results demonstrate that /debug can make fetch API requests to /api/echo, which will include /app/ path scoped
+cookies, even with SameSite set to strict.
+
+![](debug.png)
